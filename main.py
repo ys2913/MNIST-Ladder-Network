@@ -18,9 +18,9 @@ parser.add_argument('--batch-size', type=int, default=64, metavar='N',
                     help='input batch size for training (default: 64)')
 parser.add_argument('--test-batch-size', type=int, default=1000, metavar='N',
                     help='input batch size for testing (default: 1000)')
-parser.add_argument('--epochs-supervised', type=int, default=1, metavar='N',
+parser.add_argument('--epochs-supervised', type=int, default=10, metavar='N',
                     help='number of epochs to train (default: 10)')
-parser.add_argument('--epochs-unsupervised', type=int, default=1, metavar='N',
+parser.add_argument('--epochs-unsupervised', type=int, default=10, metavar='N',
                     help='number of epochs to train (default: 10)')
 parser.add_argument('--lr', type=float, default=0.01, metavar='LR',
                     help='learning rate (default: 0.01)')
@@ -44,7 +44,7 @@ print(args)
 
 kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 
-data_loader = Loader(c.FILE_TRAIN_LABELED_AUG, c.FILE_TRAIN_UNLABELED, c.FILE_VALIDATION, c.FILE_TEST, kwargs)
+data_loader = Loader('data/train_labeled_aug.p', c.FILE_TRAIN_UNLABELED, c.FILE_VALIDATION, c.FILE_TEST, kwargs)
 train_loader = data_loader.getLabeledtrain()
 unlabeled_train_loader = data_loader.getUnlabeledtrain()
 valid_loader = data_loader.getValidation()
